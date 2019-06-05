@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  spell-slot
+//  spell slot
 //
-//  Created by Casey Utke on 3/29/19.
+//  Created by Casey Utke on 5/25/19.
 //  Copyright © 2019 Casey Utke. All rights reserved.
 //
 

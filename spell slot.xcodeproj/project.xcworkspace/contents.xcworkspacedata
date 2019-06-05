@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:spell-slot.xcodeproj">
+      location = "self:spell slot.xcodeproj">
    </FileRef>
 </Workspace>
