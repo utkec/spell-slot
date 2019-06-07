@@ -10,14 +10,16 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    let spellList = [Spell]() // Create SpellList Array
+    @IBOutlet weak var spellTable: UITableView!
     
-    // Table: Number of Rows
+    // Create SpellList Array
+//    var spellList = [Spell]()
+    var spellList:[Spell] = []
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return spellList.count
     }
     
-    // Table: Data show in cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = spellList[indexPath.row].name
@@ -37,16 +39,31 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         // Start URL Session to read JSON file.
         URLSession.shared.dataTask(with: urlObj!) {(data,response,error) in
-            do { //Decode JSON file
-                let spellList = try JSONDecoder().decode([Spell].self, from: data!)
-            } catch { // Catch any stupid errors
-                print("Error decoding JSON file")
+            
+            //Decode JSON file
+            do {
+                let listOfSpells = try JSONDecoder().decode([Spell].self, from: data!)
+                
+                for spell in listOfSpells {
+                    self.spellList.append(spell)
+                }
+                
+//                for spell in spellList {
+//                    print(spell.name)
+//                    spell.classes.forEach({ (clazz) in
+//                        print(clazz)
+//                    })
+//                }
+                
+            } catch {
+                print("Error decoding JSON file: \(error)")
             }
         }.resume()
-       
-        //DispatchQueue.main.async {
-         //   self.reloadData() // wrong method toou
-        //}
+        
+        
+        // Reload TableView Data
+        DispatchQueue.main.async {
+            self.spellTable.reloadData()
+        }
     }
 }
-

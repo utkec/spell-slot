@@ -25,6 +25,10 @@ struct Components:Decodable { // Creating structure for Compenents of the spell 
 }
 print("Created Spell struct")
 
+
+var spellList:[Spell] = []
+print("Created empty spellList array")
+
 // Import JSON file from url
 let url = "https://raw.githubusercontent.com/utkec/srd_spells/master/spells_int.json"
 
@@ -34,31 +38,30 @@ print("Created JSON file object")
 
 // Start URL Session to read JSON file.
 URLSession.shared.dataTask(with: urlObj!) {(data,response,error) in
-    do { //Decode JSON file
-        let spellList = try JSONDecoder().decode([Spell].self, from: data!)
+    do {
+        //Decode JSON file
+        let listOfSpells = try JSONDecoder().decode([Spell].self, from: data!)
         print("Decoded JSON file")
         print("-----------------")
-        print("Total # of Spells:", spellList.count)
+        print("Total # of Spells:", listOfSpells.count)
         
         var i = 1 //Variable for numbering spells in console
-        for spell in spellList { //Print spells in
+        for spell in listOfSpells { //Print spells in
             print(i, spell.name)
-            
-            // for clazz in spell.classes {
-            //    print(clazz)
-            // }
-            
-            // save as above
             spell.classes.forEach({ (clazz) in
-                print(clazz)
+                print("-", clazz)
             })
-            
-            
             i = i + 1
+            spellList.append(spell)
+            
         }
         print("-----------------")
-        
-    } catch { // Catch any stupid errors
-        print("FUCK! AN ERROR!")
+    } catch {
+        print("Error decoding JSON file: \(error)")
     }
 }.resume()
+
+
+for spell in spellList {
+    print(spell.name)
+}
