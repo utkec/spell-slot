@@ -44,24 +44,18 @@ URLSession.shared.dataTask(with: urlObj!) {(data,response,error) in
         print("Decoded JSON file")
         print("-----------------")
         print("Total # of Spells:", listOfSpells.count)
+        print("SpellList Array Size =", spellList.count)
         
-        var i = 1 //Variable for numbering spells in console
-        for spell in listOfSpells { //Print spells in
-            print(i, spell.name)
-            spell.classes.forEach({ (clazz) in
-                print("-", clazz)
-            })
-            i = i + 1
+
+        for spell in listOfSpells {
             spellList.append(spell)
-            
         }
         print("-----------------")
     } catch {
         print("Error decoding JSON file: \(error)")
     }
+    print("SpellList Array Size =", spellList.count)
+    print("SpellList test =", spellList[1])
+    print("SpellList test =", spellList[3])
+    print("SpellList test =", spellList[378])
 }.resume()
-
-
-for spell in spellList {
-    print(spell.name)
-}

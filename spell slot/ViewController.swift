@@ -12,15 +12,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var spellTable: UITableView!
     
-    // Create SpellList Array
-//    var spellList = [Spell]()
-    var spellList:[Spell] = []
+    
+    // Create empty spellList qrray
+    var spellList = [Spell]()
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Make enough cells for the number of spell structs in spellList array
         return spellList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Show the spell name and level in each cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = spellList[indexPath.row].name
         cell.detailTextLabel?.text = "\(spellList[indexPath.row].level)"
@@ -37,33 +40,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Make JSON file into object
         let urlObj = URL(string: url)
         
-        // Start URL Session to read JSON file.
+        // Start URL Session to read JSON file, decode it, and add to the array
         URLSession.shared.dataTask(with: urlObj!) {(data,response,error) in
-            
-            //Decode JSON file
             do {
+                // Decode JSON file
                 let listOfSpells = try JSONDecoder().decode([Spell].self, from: data!)
                 
+                // Loops through JSON file and add spells too the spellList array
                 for spell in listOfSpells {
                     self.spellList.append(spell)
                 }
                 
-//                for spell in spellList {
-//                    print(spell.name)
-//                    spell.classes.forEach({ (clazz) in
-//                        print(clazz)
-//                    })
-//                }
-                
+                // Reload TableView Data
+                DispatchQueue.main.async {
+                    self.spellTable.reloadData()
+                }
+
             } catch {
+                // Catch any erros with decoing the JSON file and adding spells to the array
                 print("Error decoding JSON file: \(error)")
             }
         }.resume()
-        
-        
-        // Reload TableView Data
-        DispatchQueue.main.async {
-            self.spellTable.reloadData()
-        }
     }
 }
