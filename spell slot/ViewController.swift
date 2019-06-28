@@ -44,22 +44,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         URLSession.shared.dataTask(with: urlObj!) {(data,response,error) in
             do {
                 // Decode JSON file
-                let listOfSpells = try JSONDecoder().decode([Spell].self, from: data!)
-                
-                // Loops through JSON file and add spells too the spellList array
-                for spell in listOfSpells {
-                    self.spellList.append(spell)
-                }
+                self.spellList = try JSONDecoder().decode([Spell].self, from: data!)
                 
                 // Reload TableView Data
                 DispatchQueue.main.async {
                     self.spellTable.reloadData()
                 }
-
+                
             } catch {
                 // Catch any erros with decoing the JSON file and adding spells to the array
                 print("Error decoding JSON file: \(error)")
             }
-        }.resume()
+            }.resume()
     }
 }

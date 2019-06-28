@@ -14,6 +14,7 @@
 		E0106F2A229A1C8600147500 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0106F28229A1C8600147500 /* LaunchScreen.storyboard */; };
 		E09B523D22A42D0600CF6EF4 /* Spell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09B523C22A42D0600CF6EF4 /* Spell.swift */; };
 		E09B523F22A42D2D00CF6EF4 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09B523E22A42D2D00CF6EF4 /* Components.swift */; };
+		E0FB04DE22AC44F500D7E5B3 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FB04DD22AC44F500D7E5B3 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		E0106F2B229A1C8600147500 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E09B523C22A42D0600CF6EF4 /* Spell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spell.swift; sourceTree = "<group>"; };
 		E09B523E22A42D2D00CF6EF4 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		E0FB04DD22AC44F500D7E5B3 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				E0106F1F229A1C8300147500 /* AppDelegate.swift */,
 				E0106F21229A1C8300147500 /* ViewController.swift */,
+				E0FB04DD22AC44F500D7E5B3 /* DetailViewController.swift */,
 				E0106F23229A1C8300147500 /* Main.storyboard */,
 				E0106F26229A1C8600147500 /* Assets.xcassets */,
 				E0106F28229A1C8600147500 /* LaunchScreen.storyboard */,
@@ -143,6 +146,7 @@
 			files = (
 				E0106F22229A1C8300147500 /* ViewController.swift in Sources */,
 				E09B523F22A42D2D00CF6EF4 /* Components.swift in Sources */,
+				E0FB04DE22AC44F500D7E5B3 /* DetailViewController.swift in Sources */,
 				E0106F20229A1C8300147500 /* AppDelegate.swift in Sources */,
 				E09B523D22A42D0600CF6EF4 /* Spell.swift in Sources */,
 			);
