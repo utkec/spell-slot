@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var spellTable: UITableView!
+    @IBOutlet weak var navTitle: UILabel!
     
 
     // Create empty spellList qrray
@@ -73,6 +74,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         self.navigationItem.titleView = navTitle
         
         let path = Bundle.main.path(forResource: "spells_int", ofType: "json")!
         let url = URL(fileURLWithPath: path)

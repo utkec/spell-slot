@@ -10,6 +10,8 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     @IBOutlet weak var spellName: UILabel!
     @IBOutlet weak var spellLevel: UILabel!
     @IBOutlet weak var spellSchool: UILabel!
@@ -35,6 +37,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.titleView = spellName
+//        scrollView.contentSize.height = 10000
         
         spellName.text = sName
 
@@ -62,5 +65,4 @@ class DetailViewController: UIViewController {
         spellComponents.sizeToFit()
     }
     
-
 }
