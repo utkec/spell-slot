@@ -46,9 +46,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="fUg-jm-aO5" kind="show" id="Cz4-Wy-zxT"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -63,6 +60,7 @@
                     <navigationItem key="navigationItem" id="luR-Ox-Zrw"/>
                     <connections>
                         <outlet property="spellTable" destination="nyX-A4-6jU" id="ZPm-kd-uqQ"/>
+                        <segue destination="fUg-jm-aO5" kind="show" identifier="spellInfo" id="msd-vn-mwj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -164,14 +162,15 @@
                         <viewLayoutGuide key="safeArea" id="3PB-ni-kFq"/>
                     </view>
                     <connections>
-                        <outlet property="spellCastTime" destination="gW6-Lc-YHm" id="Dwj-FD-eyb"/>
-                        <outlet property="spellClass" destination="N6I-Qb-xO5" id="vX0-zr-6wa"/>
-                        <outlet property="spellComp" destination="8iu-Pp-VPM" id="oRx-uX-3Ne"/>
-                        <outlet property="spellDesc" destination="IHs-h9-rQm" id="1vZ-ja-7jl"/>
-                        <outlet property="spellDuration" destination="iE8-yP-fJT" id="gSh-N3-cHt"/>
-                        <outlet property="spellLevel" destination="4pb-Yl-XX8" id="BbA-sE-uhd"/>
-                        <outlet property="spellRange" destination="6j6-r1-iEb" id="jYD-rK-KMi"/>
-                        <outlet property="spellSchool" destination="4cU-xW-tpT" id="OJo-4V-SC6"/>
+                        <outlet property="spellCastTime" destination="gW6-Lc-YHm" id="Kgz-m0-vE1"/>
+                        <outlet property="spellClass" destination="N6I-Qb-xO5" id="jaL-Ko-hC1"/>
+                        <outlet property="spellComponents" destination="8iu-Pp-VPM" id="f9A-NO-UCB"/>
+                        <outlet property="spellDescription" destination="IHs-h9-rQm" id="kYq-eP-2z3"/>
+                        <outlet property="spellDuration" destination="iE8-yP-fJT" id="tmK-9D-WNg"/>
+                        <outlet property="spellLevel" destination="4pb-Yl-XX8" id="Gfx-dE-XIb"/>
+                        <outlet property="spellName" destination="2DZ-3W-EVr" id="xXv-tV-Ed6"/>
+                        <outlet property="spellRange" destination="6j6-r1-iEb" id="J36-yS-vOJ"/>
+                        <outlet property="spellSchool" destination="4cU-xW-tpT" id="QbM-sr-M8p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X4a-QS-JDW" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -12,10 +12,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var spellTable: UITableView!
     
-    
     // Create empty spellList qrray
     var spellList = [Spell]()
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Make enough cells for the number of spell structs in spellList array
@@ -28,6 +26,33 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.textLabel?.text = spellList[indexPath.row].name
         cell.detailTextLabel?.text = "\(spellList[indexPath.row].level)"
         return cell
+    }
+    
+    
+    
+    var rowNum = 0;
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        rowNum = indexPath.row
+        // Segue to the second view controller
+        self.performSegue(withIdentifier: "spellInfo", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // get a reference to the second view controller
+        let secondViewController = segue.destination as! DetailViewController
+        
+        // set a variable in the second view controller with the data to pass
+        secondViewController.sName = spellList[rowNum].name
+        secondViewController.sLevel = spellList[rowNum].level
+        secondViewController.sSchool = spellList[rowNum].school
+        secondViewController.sCastTime = spellList[rowNum].casting_time
+        secondViewController.sDuration = spellList[rowNum].duration
+        secondViewController.sRange = spellList[rowNum].range
+        secondViewController.sComponents = spellList[rowNum].components.raw
+        secondViewController.sClass = spellList[rowNum].classes
+        secondViewController.sDescription = spellList[rowNum].description
     }
     
     
@@ -57,4 +82,5 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
             }.resume()
     }
+    
 }
