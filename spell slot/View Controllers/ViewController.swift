@@ -12,6 +12,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var spellTable: UITableView!
     
+
     // Create empty spellList qrray
     var spellList = [Spell]()
     
@@ -23,16 +24,30 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Show the spell name and level in each cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = spellList[indexPath.row].name
-        cell.detailTextLabel?.text = "\(spellList[indexPath.row].level)"
+        let spell = spellList[indexPath.row]
+        let spellName = cell.viewWithTag(1) as! UILabel
+        let spellSchool = cell.viewWithTag(2) as! UILabel
+        let spellLevel = cell.viewWithTag(3) as! UILabel
+        
+        spellName.text = spell.name
+        spellSchool.text = spell.school.capitalized
+
+        if (spell.level == 0) {
+            spellLevel.text = "Cantrip"
+        } else {
+           spellLevel.text = "\(spell.level)"
+        }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100.0;//Choose your custom row height
     }
     
     
     
     var rowNum = 0;
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         rowNum = indexPath.row
         // Segue to the second view controller
         self.performSegue(withIdentifier: "spellInfo", sender: self)
@@ -59,28 +74,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Import JSON file from url
-        let url = "https://raw.githubusercontent.com/utkec/srd_spells/master/spells_int.json"
+        let path = Bundle.main.path(forResource: "spells_int", ofType: "json")!
+        let url = URL(fileURLWithPath: path)
         
-        // Make JSON file into object
-        let urlObj = URL(string: url)
-        
-        // Start URL Session to read JSON file, decode it, and add to the array
-        URLSession.shared.dataTask(with: urlObj!) {(data,response,error) in
-            do {
-                // Decode JSON file
-                self.spellList = try JSONDecoder().decode([Spell].self, from: data!)
-                
-                // Reload TableView Data
-                DispatchQueue.main.async {
-                    self.spellTable.reloadData()
-                }
-                
-            } catch {
-                // Catch any erros with decoing the JSON file and adding spells to the array
-                print("Error decoding JSON file: \(error)")
-            }
-            }.resume()
+        do {
+            let data = try Data(contentsOf: url)
+            self.spellList = try JSONDecoder().decode([Spell].self, from: data)
+        } catch {
+            // Catch any erros with decoing the JSON file and adding spells to the array
+            print("Error decoding JSON file: \(error)")
+        }
+    
     }
     
 }

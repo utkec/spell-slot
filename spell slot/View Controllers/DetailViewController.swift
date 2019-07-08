@@ -21,7 +21,6 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var spellDescription: UILabel!
     
     
-
     var sName: String?
     var sLevel: Int!
     var sSchool: String?
@@ -35,40 +34,33 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.titleView = spellName
         
         spellName.text = sName
-        
-        
+
         if (sLevel == 0) {
-            spellLevel.text = "Cantrip"
+            spellLevel.text = "Level: Cantrip"
         } else {
-            spellLevel.text = "Level " + "\(sLevel!)"
+            spellLevel.text = "Level: " + "\(sLevel!)"
         }
         
         spellSchool.text = "School: " + sSchool!.capitalized
         spellCastTime.text = "Cast Time: " + sCastTime!
         spellDuration.text = "Duration: " + sDuration!
         spellRange.text = "Range: " + sRange!
-        spellComponents.text = sComponents
+        spellComponents.text = "Components: " + sComponents!
         
         for (index, element) in sClass!.enumerated() {
             sClass![index] = element.capitalized
         }
         spellClass.text = "Class: " + (sClass?.joined(separator: ", "))!
-//        spellDescription.text = sDescription
-        
-        
+        spellDescription.text = sDescription
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidLayoutSubviews() {
+        spellDescription.sizeToFit()
+        spellComponents.sizeToFit()
     }
-    */
+    
 
 }
