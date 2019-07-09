@@ -26,9 +26,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Show the spell name and level in each cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let spell = spellList[indexPath.row]
-//        let spellName = cell.viewWithTag(1) as! UILabel
-//        let spellSchool = cell.viewWithTag(2) as! UILabel
-//        let spellLevel = cell.viewWithTag(3) as! UILabel
+
         
         cell.textLabel?.text = spellList[indexPath.row].name
 
@@ -87,7 +85,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             // Catch any erros with decoing the JSON file and adding spells to the array
             print("Error decoding JSON file: \(error)")
         }
+        // Sort to default view
+        spellList = spellList.sorted(by: {$0.level < $1.level})
+    }
     
+    
+    // Sort SpellList by Name
+    @IBAction func sortName(_ sender: UIButton) {
+        let sortName = spellList.sorted(by: {$0.name < $1.name})
+        spellList = sortName
+        spellTable.reloadData()
+    }
+    
+    // Sort SpellList be Level
+    @IBAction func sortLevel(_ sender: UIButton) {
+        let sortLevel = spellList.sorted(by: {$0.level < $1.level})
+        spellList = sortLevel
+        spellTable.reloadData()
     }
     
 }
