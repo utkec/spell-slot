@@ -8,35 +8,61 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var spellTable: UITableView!
     @IBOutlet weak var navTitle: UILabel!
+    @IBOutlet weak var spellSearch: UISearchBar!
     
-
+    var isSearching = false
+    
     // Create empty spellList qrray
     var spellList = [Spell]()
+    var filteredSpellList = [Spell]()
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Make enough cells for the number of spell structs in spellList array
-        return spellList.count
+        if isSearching {
+            return filteredSpellList.count
+        } else {
+            return spellList.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Show the spell name and level in each cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let spell = spellList[indexPath.row]
+        var spell = spellList[indexPath.row]
+        
+        if isSearching { // If search then use filtedSpellList
+            spell = filteredSpellList[indexPath.row]
+        }
 
         
-        cell.textLabel?.text = spellList[indexPath.row].name
-
+        
+        cell.textLabel?.text = spell.name
         if (spell.level == 0) {
             cell.detailTextLabel?.text = "Cantrip"
         } else {
            cell.detailTextLabel?.text = "\(spell.level)"
         }
+        
         return cell
     }
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text == nil || searchBar.text == "" {
+            isSearching = false
+            view.endEditing(true)
+            spellTable.reloadData()
+        } else {
+            isSearching = true
+            filteredSpellList = spellList.filter {$0.name == spellSearch.text }
+            spellTable.reloadData()
+        }
+    }
+    
+
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100.0;//Choose your custom row height
@@ -55,22 +81,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         // get a reference to the second view controller
         let secondViewController = segue.destination as! DetailViewController
+        var spell = spellList[rowNum]
+        if isSearching {
+            spell = filteredSpellList[rowNum]
+        }
         
         // set a variable in the second view controller with the data to pass
-        secondViewController.sName = spellList[rowNum].name
-        secondViewController.sLevel = spellList[rowNum].level
-        secondViewController.sSchool = spellList[rowNum].school
-        secondViewController.sCastTime = spellList[rowNum].casting_time
-        secondViewController.sDuration = spellList[rowNum].duration
-        secondViewController.sRange = spellList[rowNum].range
-        secondViewController.sComponents = spellList[rowNum].components.raw
-        secondViewController.sClass = spellList[rowNum].classes
-        secondViewController.sDescription = spellList[rowNum].description
+        secondViewController.sName = spell.name
+        secondViewController.sLevel = spell.level
+        secondViewController.sSchool = spell.school
+        secondViewController.sCastTime = spell.casting_time
+        secondViewController.sDuration = spell.duration
+        secondViewController.sRange = spell.range
+        secondViewController.sComponents = spell.components.raw
+        secondViewController.sClass = spell.classes
+        secondViewController.sDescription = spell.description
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        spellSearch.delegate = self
+        spellSearch.returnKeyType = UIReturnKeyType.done
         
         self.title = "Spells"
         self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedString.Key.font: UIFont(name: "Helvetica Bold", size: 25)!]
