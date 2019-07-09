@@ -26,17 +26,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Show the spell name and level in each cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let spell = spellList[indexPath.row]
-        let spellName = cell.viewWithTag(1) as! UILabel
-        let spellSchool = cell.viewWithTag(2) as! UILabel
-        let spellLevel = cell.viewWithTag(3) as! UILabel
+//        let spellName = cell.viewWithTag(1) as! UILabel
+//        let spellSchool = cell.viewWithTag(2) as! UILabel
+//        let spellLevel = cell.viewWithTag(3) as! UILabel
         
-        spellName.text = spell.name
-        spellSchool.text = spell.school.capitalized
+        cell.textLabel?.text = spellList[indexPath.row].name
 
         if (spell.level == 0) {
-            spellLevel.text = "Cantrip"
+            cell.detailTextLabel?.text = "Cantrip"
         } else {
-           spellLevel.text = "\(spell.level)"
+           cell.detailTextLabel?.text = "\(spell.level)"
         }
         return cell
     }
@@ -74,8 +73,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         self.navigationItem.titleView = navTitle
         
+        self.title = "Spells"
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedString.Key.font: UIFont(name: "Helvetica Bold", size: 25)!]
+
         let path = Bundle.main.path(forResource: "spells_int", ofType: "json")!
         let url = URL(fileURLWithPath: path)
         

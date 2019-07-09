@@ -12,6 +12,7 @@ class DetailViewController: UIViewController {
 
     @IBOutlet weak var scrollView: UIScrollView!
     
+    // Spell info UI elements
     @IBOutlet weak var spellName: UILabel!
     @IBOutlet weak var spellLevel: UILabel!
     @IBOutlet weak var spellSchool: UILabel!
@@ -22,7 +23,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var spellClass: UILabel!
     @IBOutlet weak var spellDescription: UILabel!
     
-    
+    // Spell info variables (changed in ViewController.swift)
     var sName: String?
     var sLevel: Int!
     var sSchool: String?
@@ -36,28 +37,32 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.titleView = spellName
-//        scrollView.contentSize.height = 10000
         
-        spellName.text = sName
+        
+        
+        // Set title name and size
+        self.title = sName
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedString.Key.font: UIFont(name: "Helvetica Bold", size: 25)!]
+        
 
+        // Display spell info
         if (sLevel == 0) {
-            spellLevel.text = "Level: Cantrip"
+            spellLevel.text = "Cantrip"
         } else {
-            spellLevel.text = "Level: " + "\(sLevel!)"
+            spellLevel.text = "Level " + "\(sLevel!)"
         }
-        
         spellSchool.text = "School: " + sSchool!.capitalized
         spellCastTime.text = "Cast Time: " + sCastTime!
         spellDuration.text = "Duration: " + sDuration!
         spellRange.text = "Range: " + sRange!
         spellComponents.text = "Components: " + sComponents!
-        
+
         for (index, element) in sClass!.enumerated() {
             sClass![index] = element.capitalized
         }
         spellClass.text = "Class: " + (sClass?.joined(separator: ", "))!
         spellDescription.text = sDescription
+        
     }
     
     override func viewDidLayoutSubviews() {
