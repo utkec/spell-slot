@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct Components : Decodable { // Creating structure for Compenents of the spell object
+// Creating structure for Compenents of the spell object
+struct Components : Decodable {
     let material:Bool
     let materials_needed:[String]?
     let raw: String

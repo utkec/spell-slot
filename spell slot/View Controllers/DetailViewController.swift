@@ -40,7 +40,7 @@ class DetailViewController: UIViewController {
         
         
         
-        // Set title name and size
+        // Set DetailViewController name and style
         self.title = sName
         self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedString.Key.font: UIFont(name: "Helvetica Bold", size: 25)!]
         
@@ -65,9 +65,11 @@ class DetailViewController: UIViewController {
         
     }
     
-    override func viewDidLayoutSubviews() {
-        spellDescription.sizeToFit()
-        spellComponents.sizeToFit()
-    }
+
+    // Not sure if this needed
+//    override func viewDidLayoutSubviews() {
+//        spellDescription.sizeToFit()
+//        spellComponents.sizeToFit()
+//    }
     
 }

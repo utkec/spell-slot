@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct Spell : Decodable { // Creating structure for spell object
+// Creating structure for spell object
+struct Spell : Decodable {
     let name:String
     let duration:String
     let casting_time:String

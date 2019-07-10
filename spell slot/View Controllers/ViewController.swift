@@ -20,6 +20,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var spellList = [Spell]()
     var filteredSpellList = [Spell]()
     
+    
+    
+    
+    // Create the size of the table. If searching, use filteed array. Otherwise use regular array.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSearching {
             return filteredSpellList.count
@@ -28,16 +32,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    
+    // Create each table cell for each spell in one of the spell arrays
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Create table cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        // Create variable for the array to use for the cells (default is regular array)
         var spell = spellList[indexPath.row]
         
-        if isSearching { // If search then use filtedSpellList
+        // Switch to Filtered Array if using the search bar
+        if isSearching {
             spell = filteredSpellList[indexPath.row]
         }
 
-        
-        
+        // Display spell name and level on table cell
         cell.textLabel?.text = spell.name
         if (spell.level == 0) {
             cell.detailTextLabel?.text = "Cantrip"
@@ -49,7 +57,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
+    // Search bar search function
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        // If not searching, end editing, and reload table back to previous state.
+        // Otherwise, make the filtered array equal to whatever is filtered in the regular array
         if searchBar.text == nil || searchBar.text == "" {
             isSearching = false
             view.endEditing(true)
@@ -63,13 +75,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
 
     
-    
+    // Height for each cell
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100.0;//Choose your custom row height
+        return 100.0;
     }
     
     
-    
+    // Declare variable for the row number.
     var rowNum = 0;
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         rowNum = indexPath.row
@@ -77,8 +89,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.performSegue(withIdentifier: "spellInfo", sender: self)
     }
     
+    // Runs before seque, changes what data will be scene in DetailViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         // get a reference to the second view controller
         let secondViewController = segue.destination as! DetailViewController
         var spell = spellList[rowNum]
@@ -104,20 +116,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         spellSearch.delegate = self
         spellSearch.returnKeyType = UIReturnKeyType.done
         
+        // Sets title of ViewController
         self.title = "Spells"
         self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedString.Key.font: UIFont(name: "Helvetica Bold", size: 25)!]
 
+        // Get JSON file from project
         let path = Bundle.main.path(forResource: "spells_int", ofType: "json")!
         let url = URL(fileURLWithPath: path)
         
+        // Loop through JSON file and add it to the spellList Array.
         do {
             let data = try Data(contentsOf: url)
             self.spellList = try JSONDecoder().decode([Spell].self, from: data)
         } catch {
-            // Catch any erros with decoing the JSON file and adding spells to the array
+            // Catch any errors with decoding the JSON file and adding spells to the array
             print("Error decoding JSON file: \(error)")
         }
-        // Sort to default view
+        // Default sorted view
         spellList = spellList.sorted(by: {$0.level < $1.level})
     }
     
