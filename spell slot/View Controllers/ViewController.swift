@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
@@ -68,7 +69,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             spellTable.reloadData()
         } else {
             isSearching = true
-            filteredSpellList = spellList.filter {$0.name == spellSearch.text }
+            let text = spellSearch.text ?? "0"
+            filteredSpellList = spellList.filter {$0.name.contains(text)}
             spellTable.reloadData()
         }
     }
