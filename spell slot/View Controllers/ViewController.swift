@@ -34,6 +34,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
+    
     // Create each table cell for each spell in one of the spell arrays
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create table cell
@@ -136,21 +137,34 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         // Default sorted view
         spellList = spellList.sorted(by: {$0.level < $1.level})
+        
     }
     
     
     // Sort SpellList by Name
     @IBAction func sortName(_ sender: UIButton) {
-        let sortName = spellList.sorted(by: {$0.name < $1.name})
-        spellList = sortName
-        spellTable.reloadData()
+        if isSearching {
+            let filteredSortName = filteredSpellList.sorted(by: {$0.name < $1.name})
+            filteredSpellList = filteredSortName
+            spellTable.reloadData()
+        } else {
+            let sortName = spellList.sorted(by: {$0.name < $1.name})
+            spellList = sortName
+            spellTable.reloadData()
+        }
     }
     
     // Sort SpellList be Level
     @IBAction func sortLevel(_ sender: UIButton) {
-        let sortLevel = spellList.sorted(by: {$0.level < $1.level})
-        spellList = sortLevel
-        spellTable.reloadData()
+        if isSearching {
+            let filteredSortLevel = filteredSpellList.sorted(by: {$0.level < $1.level})
+            filteredSpellList = filteredSortLevel
+            spellTable.reloadData()
+        } else {
+            let sortLevel = spellList.sorted(by: {$0.level < $1.level})
+            spellList = sortLevel
+            spellTable.reloadData()
+        }
     }
     
 }
