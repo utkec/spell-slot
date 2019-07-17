@@ -70,7 +70,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             spellTable.reloadData()
         } else {
             isSearching = true
-            let text = spellSearch.text ?? "0"
+            guard let text = spellSearch.text else {
+                assertionFailure("No search queary was entered")
+                return
+            }
             filteredSpellList = spellList.filter {$0.name.contains(text)}
             spellTable.reloadData()
         }
