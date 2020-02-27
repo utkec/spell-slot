@@ -59,6 +59,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
+    
+    
     // Search bar search function
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
@@ -122,6 +124,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         spellSearch.delegate = self
         spellSearch.returnKeyType = UIReturnKeyType.done
         
+        //Looks for single or multiple taps.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+
+           //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+           tap.cancelsTouchesInView = false
+
+           view.addGestureRecognizer(tap)
+        
         // Sets title of ViewController
         self.title = "Spells"
         self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedString.Key.font: UIFont(name: "Helvetica Bold", size: 25)!]
@@ -140,6 +150,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         // Default sorted view
         spellList = spellList.sorted(by: {$0.level < $1.level})
+        self.spellSearch.delegate = self
+
+        
         
     }
     
@@ -168,6 +181,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             spellList = sortLevel
             spellTable.reloadData()
         }
+    }
+    
+    //Calls this function when the tap is recognized.
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
     }
     
 }
