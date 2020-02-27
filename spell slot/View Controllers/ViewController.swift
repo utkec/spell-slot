@@ -9,19 +9,19 @@
 import UIKit
 import Foundation
 
+// VIRE CONTROLLER START
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var spellTable: UITableView!
     @IBOutlet weak var navTitle: UILabel!
     @IBOutlet weak var spellSearch: UISearchBar!
     
+    // isSearching starts as false
     var isSearching = false
     
     // Create empty spellList qrray
     var spellList = [Spell]()
     var filteredSpellList = [Spell]()
-    
-    
     
     
     // Create the size of the table. If searching, use filteed array. Otherwise use regular array.
@@ -31,8 +31,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         } else {
             return spellList.count
         }
+        
+        
     }
-    
+
     
     
     // Create each table cell for each spell in one of the spell arrays
@@ -150,10 +152,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         // Default sorted view
         spellList = spellList.sorted(by: {$0.level < $1.level})
-        self.spellSearch.delegate = self
-
-        
-        
     }
     
     
@@ -183,15 +181,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    //Calls this function when the tap is recognized.
+    // Calls this function when the tap is recognized.
     @objc func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        // Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return false
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)  {
+        searchBar.resignFirstResponder()
     }
     
 }
+// VIEW CONTROLLER END
