@@ -42,7 +42,7 @@ class DetailViewController: UIViewController {
         
         // Set DetailViewController name and style
         self.title = sName
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedString.Key.font: UIFont(name: "Helvetica Bold", size: 25)!]
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedString.Key.foregroundColor: UIColor(red:0.43, green:0.43, blue:0.43, alpha:1.0), NSAttributedString.Key.font: UIFont(name: "Helvetica Bold", size: 25)!]
         
 
         // Display spell info

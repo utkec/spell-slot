@@ -57,9 +57,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
            cell.detailTextLabel?.text = "\(spell.level)"
         }
         
+        // Cell Detail Label Styling
+        cell.detailTextLabel?.textColor = UIColor(red:0.43, green:0.43, blue:0.43, alpha:1.0)
+        
+        // Cell Title Label Styling
+        cell.textLabel?.textColor = UIColor(red:0.43, green:0.43, blue:0.43, alpha:1.0)
+        cell.textLabel?.font = UIFont(name: "Helvetica Bold", size: 20)
+        
+        
         return cell
+        
     }
-    
     
     
     
@@ -136,7 +144,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         // Sets title of ViewController
         self.title = "Spells"
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedString.Key.font: UIFont(name: "Helvetica Bold", size: 25)!]
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedString.Key.foregroundColor: UIColor(red:0.43, green:0.43, blue:0.43, alpha:1.0),NSAttributedString.Key.font: UIFont(name: "Helvetica Bold", size: 25)!]
+        
+        
 
         // Get JSON file from project
         let path = Bundle.main.path(forResource: "spells_int", ofType: "json")!
